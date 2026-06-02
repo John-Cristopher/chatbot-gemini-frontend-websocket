@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot com Flask-SocketIO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="min-h-screen bg-[#090b1a] text-slate-100 flex items-center justify-center p-4">
+    <div class="w-full max-w-6xl grid gap-6 lg:grid-cols-[1fr_1.3fr]">
+        <section
+            class="flex min-h-[80vh] max-h-[700px] flex-col overflow-hidden rounded-[24px] bg-[#111429] shadow-[0_20px_80px_rgba(53,33,128,0.22)]">
+            <figure class="h-full overflow-hidden">
+                <img src="img/GABR-01.png"
+                    alt="Chatbot ilustrativo" class="h-full w-full object-cover">
+            </figure>
+            <div id="controles" class="flex flex-wrap items-center justify-center gap-4 p-5 bg-[#141630]">
+                <button id="iniciarBtn"
+                    class="rounded-full bg-[#8d73ff] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#6c55f4] focus:outline-none focus:ring-2 focus:ring-[#8d73ff]">
+                    Iniciar conversa
+                </button>
+                <button id="limparBtn"
+                    class="rounded-full bg-[#4dd0ff] px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-[#32c6ff] focus:outline-none focus:ring-2 focus:ring-[#4dd0ff]">
+                    Limpar tela
+                </button>
+                <button id="encerrarBtn"
+                    class="rounded-full bg-[#f27ca6] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#e66592] focus:outline-none focus:ring-2 focus:ring-[#f27ca6]">
+                    Encerrar conversa
+                </button>
+            </div>
+        </section>
+
+        <section class="flex min-h-[80vh] max-h-[700px] flex-col overflow-hidden rounded-[24px] bg-[#111429] shadow-[0_20px_80px_rgba(53,33,128,0.22)]">
+            <header class="bg-[#5f4ed2] px-6 py-5 text-center text-white">
+                <h1 class="text-2xl font-semibold">Overwatch Gabretz</h1>
+                <div id="connection-status" class="status-offline text-sm pt-2">Conectando...</div>
+            </header>
+            <main id="chat-box" class="flex-1 overflow-y-auto bg-[#0f1228] p-5"></main>
+            <footer class="flex flex-col gap-3 border-t border-[#25254f] bg-[#10142f] p-5 sm:flex-row">
+                <input id="message-input" type="text" placeholder="Digite sua mensagem aqui..."
+                    class="flex-1 rounded-full border border-[#3f3b75] bg-[#161a36] px-4 py-3 text-base text-slate-100 shadow-sm outline-none transition focus:border-[#7c5cf4] focus:ring-2 focus:ring-[#7c5cf4]/30">
+                <button id="send-button"
+                    class="rounded-full bg-[#7c5cf4] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#675ae5] disabled:bg-[#3a3a60] disabled:cursor-not-allowed">
+                    Enviar
+                </button>
+            </footer>
+        </section>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
