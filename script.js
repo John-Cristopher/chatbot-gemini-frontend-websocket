@@ -1,4 +1,4 @@
-const URL_BACKEND = 'https://chatbot-flask-backend-zmsy.onrender.com'
+const URL_BACKEND = 'http://localhost:5000'
 
 document.addEventListener('DOMContentLoaded', () => {
     let socket = null;
