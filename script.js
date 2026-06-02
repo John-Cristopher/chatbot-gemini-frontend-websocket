@@ -1,4 +1,4 @@
-const URL_BACKEND = 'https://chatbot-flask-backend-4m26.onrender.com'
+const URL_BACKEND = 'https://chatbot-gemini-backend-websocket.onrender.com'
 
 document.addEventListener('DOMContentLoaded', () => {
     let socket = null;
