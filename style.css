@@ -157,3 +157,49 @@ body {
     padding: 0;
     color: inherit;
 }
+
+/* Container do balão de digitação (estilo bot tático) */
+.typing-indicator {
+    background-color: #171b15;
+    border: 1px solid #2d3624;
+    padding: 12px 18px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 80px;
+    margin-right: auto;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Os três pontos táticos */
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #718259; /* Verde oliva idêntico ao do bot */
+    border-radius: 50%;
+    animation: pulseDots 1.4s infinite ease-in-out both;
+}
+
+/* Alternância de tempo para cada ponto criar a onda */
+.typing-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+.typing-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* Animação de pulso vertical */
+@keyframes pulseDots {
+    0%,
+    80%,
+    100% {
+        transform: scale(0.6);
+        opacity: 0.4;
+    }
+    40% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const limparBtn = document.getElementById('limparBtn');
     const modoSeletor = document.getElementById('modoSeletor');
 
+    let typingIndicatorElement = null;
     let userSessionId = null;
 
     // Função para adicionar mensagens no chat
@@ -102,12 +103,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         socket.on('nova_mensagem', (data) => {
+            removerDigitando();
             addMessageToChat(data.remetente, data.texto);
         });
 
         socket.on('erro', (data) => {
+            removerDigitando();
             addMessageToChat('Erro', data.erro, 'error');
         });
+    }
+
+    // Mostra a animação de digitação na tela
+    function mostrarDigitando() {
+        if (typingIndicatorElement) return; // Evita duplicar se o usuário clicar rápido
+
+        typingIndicatorElement = document.createElement('div');
+        typingIndicatorElement.className = 'typing-indicator';
+
+        // Cria os 3 pontinhos internos
+        for (let i = 0; i < 3; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'typing-dot';
+            typingIndicatorElement.appendChild(dot);
+        }
+
+        chatBox.appendChild(typingIndicatorElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Remove a animação da tela
+    function removerDigitando() {
+        if (typingIndicatorElement) {
+            typingIndicatorElement.remove();
+            typingIndicatorElement = null;
+        }
     }
 
     // Função para encerrar a conversa
@@ -138,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensagem: messageText,
                 modo: modoSeletor.value
             });
+            mostrarDigitando();
 
             messageInput.value = '';
             messageInput.focus();
