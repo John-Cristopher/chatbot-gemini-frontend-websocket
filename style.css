@@ -60,14 +60,22 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.message strong {
+/* Estilo para o cabeçalho da mensagem (Quem enviou: Você/Bot) */
+.message > strong {
     font-weight: 700;
     font-family: monospace;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 1.05rem; /* Aumentado para dar destaque ao nome do remetente */
     letter-spacing: 0.05em;
     display: block;
     margin-bottom: 4px;
+}
+
+/* Estilo para termos citados no corpo da mensagem (veículos, equipamentos, nomes) */
+.message span strong {
+    font-size: 1.15em; /* Fonte um pouco maior para citações em negrito */
+    font-weight: 800;
+    display: inline;
 }
 
 /* Mensagem do Usuário - Cor Marrom Coyote / Tan Escuro */
