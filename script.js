@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sender = 'Você';
         } else if (sender.toLowerCase() === 'bot') {
             messageElement.classList.add('bot-message');
-            sender = 'Bot';
+            sender = 'Gabretz';
         } else {
             messageElement.classList.add('status-message');
         }
