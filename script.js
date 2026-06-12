@@ -1,4 +1,4 @@
-const URL_BACKEND = 'https://chatbot-flask-backend-zmsy.onrender.com'
+const URL_BACKEND = 'https://chatbot-gemini-backend-websocket.onrender.com'
 
 document.addEventListener('DOMContentLoaded', () => {
     let socket = null;
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const iniciarBtn = document.getElementById('iniciarBtn');
     const encerrarBtn = document.getElementById('encerrarBtn');
     const limparBtn = document.getElementById('limparBtn');
+    const modoSeletor = document.getElementById('modoSeletor');
 
     let userSessionId = null;
 
@@ -72,8 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function iniciarConversa() {
         if (socket && socket.connected) return;
 
-        socket = io(URL_BACKEND);
+        // Envia o modo tático escolhido no momento da conexão
+        socket = io(URL_BACKEND, {
+            query: { modo: modoSeletor.value }
+        });
 
+        // IMPORTANTE: Adicionado de volta o evento de connect que havia sumido!
         socket.on('connect', () => {
             console.log('Conectado ao servidor Socket.IO! SID:', socket.id);
             connectionStatus.textContent = 'Conectado';
@@ -127,7 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (socket && socket.connected) {
             addMessageToChat('user', messageText);
-            socket.emit('enviar_mensagem', { mensagem: messageText });
+
+            // Enviando a mensagem E o modo atual selecionado
+            socket.emit('enviar_mensagem', {
+                mensagem: messageText,
+                modo: modoSeletor.value
+            });
+
             messageInput.value = '';
             messageInput.focus();
         } else {

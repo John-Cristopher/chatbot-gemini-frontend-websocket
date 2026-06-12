@@ -4,114 +4,156 @@
     box-sizing: border-box;
 }
 
+@import "tailwindcss";
+
 body {
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at top, rgba(142, 103, 255, 0.14), transparent 18%), linear-gradient(180deg, #090b1a 0%, #0f1228 100%);
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(142, 103, 255, 0.14),
+            transparent 18%
+        ),
+        linear-gradient(180deg, #090b1a 0%, #0f1228 100%);
     color: #e2e8ff;
     gap: 10px;
 }
 
-.chat-box {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #0f1228;
-    border-bottom: 1px solid rgba(126, 87, 255, 0.16);
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 }
 
+.chat-box {
+    flex-grow: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background-color: #0f1114;
+}
+
+/* Base de layout para as mensagens injetadas */
 .message {
-    margin-bottom: 15px;
-    line-height: 1.5;
-    padding: 12px 18px;
-    border-radius: 18px;
-    max-width: 80%;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    padding: 14px 18px;
+    border-radius: 6px; /* Cantos mais retos trazem um aspecto mais industrial/militar */
+    max-width: 85%;
     word-wrap: break-word;
+    font-size: 0.925rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .message strong {
     font-weight: 700;
+    font-family: monospace;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 4px;
 }
 
+/* Mensagem do Usuário - Cor Marrom Coyote / Tan Escuro */
 .user-message {
-    background-color: #5f4ed2;
-    color: #f8f9ff;
+    background-color: #24211a;
+    color: #eaddca;
+    border: 1px solid #3d3629;
     margin-left: auto;
-    border-bottom-right-radius: 5px;
+}
+.user-message strong {
+    color: #a39071;
 }
 
+/* Mensagem do Bot (Estrategista) - Verde Oliva Fechado / Chumbo */
 .bot-message {
-    background-color: #141a34;
-    color: #e2e8ff;
-    border: 1px solid rgba(126, 87, 255, 0.16);
+    background-color: #171b15;
+    color: #e2e8f0;
+    border: 1px solid #2d3624;
     margin-right: auto;
-    border-bottom-left-radius: 5px;
+}
+.bot-message strong {
+    color: #718259;
 }
 
+/* Mensagem de Status do Terminal */
 .status-message {
-    background-color: #23264a;
-    color: #d8d9ff;
-    font-style: italic;
-    font-size: 0.9rem;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 90%;
-    border-radius: 8px;
+    background-color: #15181c;
+    color: #8c939d;
+    border-left: 3px solid #4a525a;
+    font-family: monospace;
+    font-size: 0.8rem;
+    text-align: left;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 4px;
+    padding: 8px 14px;
 }
 
-.status-message .status-text {
-    color: #d8d9ff;
-}
-
-.error-text {
-    color: #ffb4cd !important;
-}
-
+/* Estados de Conexão Customizados */
 .status-online {
-    color: #7dd3fc;
+    color: #87996b !important; /* Verde oliva claro ativo */
+}
+.status-online::before {
+    content: "● ";
+    font-size: 0.9rem;
 }
 
 .status-offline {
-    color: #f9a8d4;
+    color: #c26161 !important; /* Vermelho tático de aviso */
+}
+.status-offline::before {
+    content: "○ ";
+    font-size: 0.9rem;
 }
 
+/* Customizações do Markdown de Saída */
 .message span p {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
-
 .message span p:last-child {
     margin-bottom: 0;
 }
 
-.message span ul,
-.message span ol {
-    margin-left: 20px;
-    margin-bottom: 10px;
-}
-
 .message span pre {
-    background-color: #11152b;
-    color: #f7f7ff;
-    padding: 10px;
-    border-radius: 8px;
+    background-color: #0b0c0e;
+    border: 1px solid #23272e;
+    color: #c9d1d9;
+    padding: 12px;
+    border-radius: 4px;
     overflow-x: auto;
     margin: 10px 0;
+    font-family: monospace;
 }
 
 .message span code {
-    background-color: rgba(96, 165, 250, 0.12);
-    padding: 2px 4px;
-    border-radius: 4px;
+    background-color: rgba(163, 144, 113, 0.15);
+    color: #e6dfb8;
+    padding: 2px 5px;
+    border-radius: 3px;
     font-family: monospace;
+    font-size: 0.85rem;
 }
 
 .message span pre code {
     background-color: transparent;
     padding: 0;
+    color: inherit;
 }

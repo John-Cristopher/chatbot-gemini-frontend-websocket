@@ -4,48 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot com Flask-SocketIO</title>
+    <title>Estrategista Tático - </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="min-h-screen bg-[#090b1a] text-slate-100 flex items-center justify-center p-4">
-    <div class="w-full max-w-6xl grid gap-6 lg:grid-cols-[1fr_1.3fr]">
+<body
+    class="min-h-screen bg-[#0d0e12] text-stone-200 flex items-center justify-center p-4 selection:bg-[#4c533c] selection:text-white no-scrollbar">
+    <div class="w-full max-w-6xl grid gap-6 lg:grid-cols-[0.9fr_1.4fr]">
+
         <section
-            class="flex min-h-[80vh] max-h-[700px] flex-col overflow-hidden rounded-[24px] bg-[#111429] shadow-[0_20px_80px_rgba(53,33,128,0.22)]">
-            <figure class="h-64 overflow-hidden">
-                <img src="img/GABR-01.png"
-                    alt="Chatbot ilustrativo" class="h-full w-full object-cover">
-            </figure>
-            <div id="controles" class="flex flex-wrap items-center justify-center gap-4 p-5 bg-[#141630]">
+            class="flex flex-col justify-between overflow-hidden rounded-xl border border-[#2d3126] bg-[#14171a] shadow-2xl shadow-black/50">
+            <div>
+                <div class="border-b border-[#2d3126] bg-[#1a1e22] px-6 py-4">
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-[#7a684d] animate-pulse"></span>
+                        <h2 class="text-xs font-bold tracking-widest text-[#a39071] uppercase">Sistemas de Campo</h2>
+                    </div>
+                </div>
+
+                <figure class="relative h-[425px] overflow-hidden bg-[#1a1e22] border-b border-[#2d3126]">
+                    <div class="absolute inset-0 bg-linear-to-t from-[#14171a] via-transparent to-transparent z-10">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-[linear-gradient(rgba(76,83,60,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(76,83,60,0.05)_1px,transparent_1px)] bg-size-[20px_20px] z-10">
+                    </div>
+                    <img src="img/GABR-01.png" alt="Chatbot ilustrativo"
+                        class="h-full w-full object-cover opacity-60 filter grayscale sepia-20 contrast-125">
+                </figure>
+
+                <div class="p-6">
+                    <p class="text-xs leading-relaxed text-stone-400 font-mono">
+                        <span class="text-[#60694d] font-bold">// DIRETRIZ:</span> Analisar cenários de risco, coordenar
+                        logística. Mantenha a linha limpa.
+                    </p>
+                </div>
+            </div>
+
+            <div id="controles" class="grid grid-cols-1 gap-2 p-6 bg-[#1a1e22] border-t border-[#2d3126]">
                 <button id="iniciarBtn"
-                    class="rounded-full bg-[#8d73ff] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#6c55f4] focus:outline-none focus:ring-2 focus:ring-[#8d73ff]">
-                    Iniciar conversa
+                    class="w-full rounded bg-[#4c533c] px-5 py-3 text-xs font-bold uppercase tracking-wider text-stone-100 border border-[#60694d] transition hover:bg-[#5a6247] focus:outline-none focus:ring-2 focus:ring-[#60694d]">
+                    Establish Link (Iniciar)
                 </button>
-                <button id="limparBtn"
-                    class="rounded-full bg-[#4dd0ff] px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-[#32c6ff] focus:outline-none focus:ring-2 focus:ring-[#4dd0ff]">
-                    Limpar tela
-                </button>
-                <button id="encerrarBtn"
-                    class="rounded-full bg-[#f27ca6] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#e66592] focus:outline-none focus:ring-2 focus:ring-[#f27ca6]">
-                    Encerrar conversa
-                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <button id="limparBtn"
+                        class="rounded bg-[#282b30] px-4 py-3 text-xs font-bold uppercase tracking-wider text-stone-400 border border-stone-700 transition hover:bg-[#34383f] hover:text-stone-200 focus:outline-none">
+                        Limpar Terminal
+                    </button>
+                    <button id="encerrarBtn"
+                        class="rounded bg-[#3d2424] px-4 py-3 text-xs font-bold uppercase tracking-wider text-red-300 border border-[#5c3131] transition hover:bg-[#4f2e2e] focus:outline-none">
+                        Cortar Sinal
+                    </button>
+                </div>
+                <div class="mb-2">
+                    <label for="modoSeletor"
+                        class="block text-[10px] font-bold uppercase tracking-wider text-stone-500 font-mono mb-1">
+                        Diretriz de Resposta
+                    </label>
+                    <select id="modoSeletor"
+                        class="w-full rounded bg-[#111317] border border-[#2d3126] px-3 py-2 text-xs font-mono text-stone-300 focus:border-[#60694d] outline-none cursor-pointer">
+                        <option value="detalhado" selected>ANÁLISE DETALHADA (Doutrina Clássica)</option>
+                        <option value="rapido">RESPOSTA RÁPIDA (Direta/Seca)</option>
+                    </select>
+                </div>
             </div>
         </section>
 
-        <section class="flex min-h-[80vh] max-h-[700px] flex-col overflow-hidden rounded-[24px] bg-[#111429] shadow-[0_20px_80px_rgba(53,33,128,0.22)]">
-            <header class="bg-[#5f4ed2] px-6 py-5 text-center text-white">
-                <h1 class="text-2xl font-semibold">Overwatch Gabretz</h1>
-                <div id="connection-status" class="status-offline text-sm pt-2">Conectando...</div>
+        <section
+            class="flex min-h-[85vh] max-h-[750px] flex-col overflow-hidden rounded-xl border border-[#2d3126] bg-[#14171a] shadow-2xl shadow-black/50">
+            <header class="border-b border-[#2d3126] bg-[#1a1e22] px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-stone-100">Tactical AI // <span
+                            class="text-[#a39071]">GABRETZ</span></h1>
+                    <div id="connection-status"
+                        class="status-offline text-xs font-mono mt-0.5 transition-all duration-300">Conectando ao
+                        satélite...</div>
+                </div>
+                <div class="hidden sm:block text-right font-mono text-[10px] text-stone-500">
+                    <p>SECURE CHANNEL // STABLE</p>
+                    <p>LOC: LAT -23.854 | LON -48.885</p>
+                </div>
             </header>
-            <main id="chat-box" class="flex-1 overflow-y-auto bg-[#0f1228] p-5"></main>
-            <footer class="flex flex-col gap-3 border-t border-[#25254f] bg-[#10142f] p-5 sm:flex-row">
-                <input id="message-input" type="text" placeholder="Digite sua mensagem aqui..."
-                    class="flex-1 rounded-full border border-[#3f3b75] bg-[#161a36] px-4 py-3 text-base text-slate-100 shadow-sm outline-none transition focus:border-[#7c5cf4] focus:ring-2 focus:ring-[#7c5cf4]/30">
-                <button id="send-button"
-                    class="rounded-full bg-[#7c5cf4] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#675ae5] disabled:bg-[#3a3a60] disabled:cursor-not-allowed">
-                    Enviar
-                </button>
+
+            <main id="chat-box"
+                class="flex-1 overflow-y-auto bg-[#0f1114] p-6 space-y-4 font-sans selection:bg-[#7a684d]"></main>
+
+            <footer class="border-t border-[#2d3126] bg-[#1a1e22] p-4">
+                <div class="flex flex-col gap-2 sm:flex-row items-stretch">
+                    <div class="relative flex-1 flex items-center">
+                        <span
+                            class="absolute left-4 text-[#60694d] font-mono text-sm font-bold pointer-events-none">&gt;</span>
+                        <input id="message-input" type="text" placeholder="Aguardando ordens ou coordenadas..."
+                            class="w-full rounded border border-[#2d3126] bg-[#111317] pl-8 pr-4 py-3.5 text-sm text-stone-100 font-mono placeholder-stone-600 outline-none transition focus:border-[#60694d] focus:ring-1 focus:ring-[#60694d]">
+                    </div>
+                    <button id="send-button"
+                        class="rounded bg-[#7a684d] px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-stone-900 border border-[#917d5c] transition hover:bg-[#8f7b5b] hover:text-stone-950 disabled:bg-[#1f2124] disabled:border-stone-800 disabled:text-stone-600 disabled:cursor-not-allowed">
+                        Transmitir
+                    </button>
+                </div>
             </footer>
         </section>
     </div>
